@@ -1,0 +1,33 @@
+load("@greeting_deps//:defs.bzl", "aliases", "all_crate_deps")
+load(
+    "@rules_rust//rust:defs.bzl",
+    "rust_library",
+)
+
+package(default_visibility = [
+    "//visibility:public",
+])
+exports_files([
+    "Cargo.toml",
+    "Cargo.lock",
+])
+
+rust_library(
+    name = "greeting",
+    srcs = glob(["**/*.rs"]),
+    aliases = aliases(),
+    crate_features = [
+    ],
+    crate_root = "src/lib.rs",
+    data = [],
+    edition = "2021",
+    proc_macro_deps = all_crate_deps(proc_macro = True),
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "crate-name=greeting",
+    ],
+    version = "0.1.0",
+    deps = all_crate_deps(normal = True),
+)

@@ -1,0 +1,12 @@
+load("@rules_rust//crate_universe:defs.bzl", "crates_vendor")
+
+crates_vendor(
+    name = "case2_deps",
+    cargo_lockfile = "//:Cargo.lock",
+    manifests = [
+        "//:Cargo.toml",
+    ],
+    mode = "remote",
+    vendor_path = "crates",
+    tags = ["manual"],
+)

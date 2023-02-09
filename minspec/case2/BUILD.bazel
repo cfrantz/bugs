@@ -1,0 +1,35 @@
+load("@case2_deps//:defs.bzl", "aliases", "all_crate_deps")
+load(
+    "@rules_rust//rust:defs.bzl",
+    "rust_binary",
+)
+
+package(default_visibility = [
+    "//visibility:public",
+])
+exports_files([
+    "Cargo.toml",
+    "Cargo.lock",
+])
+
+rust_binary(
+    name = "case2",
+    srcs = glob(["**/*.rs"]),
+    aliases = aliases(),
+    crate_features = [
+    ],
+    crate_root = "src/main.rs",
+    data = [],
+    edition = "2021",
+    proc_macro_deps = all_crate_deps(proc_macro = True),
+    rustc_flags = [
+        "--cap-lints=allow",
+    ],
+    tags = [
+        "crate-name=case2",
+    ],
+    version = "0.1.0",
+    deps = all_crate_deps(normal = True) + [
+        "@greeting//:greeting",
+    ],
+)

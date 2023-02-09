@@ -1,0 +1,23 @@
+workspace(name = "case2")
+
+# Rust Toolchain
+load("//third_party/rust:repos.bzl", "rust_repos")
+rust_repos()
+
+load("//third_party/rust:deps.bzl", "rust_deps")
+rust_deps()
+
+# Use crate_universe to pull in crates.io dependencies specified in
+# the Cargo.toml files.
+load("@rules_rust//crate_universe:repositories.bzl", "crate_universe_dependencies")
+crate_universe_dependencies()
+
+load("//third_party/rust/crates:crates.bzl", "crate_repositories")
+crate_repositories()
+
+local_repository(
+    name = "greeting",
+    path = "../greeting",
+)
+load("@greeting//third_party/rust/crates:crates.bzl", greeting_deps="crate_repositories")
+greeting_deps()
