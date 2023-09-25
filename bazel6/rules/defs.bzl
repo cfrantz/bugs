@@ -6,7 +6,11 @@ ToolboxInfo = provider()
 
 def _toolbox(ctx):
     return ToolboxInfo(
-        hasher = ctx.executable.hasher,
+        # Doc issue: You'd think you should use ctx.executable.hasher
+        # but that doesn't carry the runfiles.  Get the undocumented
+        # `files_to_run` provider.
+        #hasher = ctx.executable.hasher
+        hasher = ctx.attr.hasher.files_to_run
     )
 
 toolbox = rule(
@@ -71,8 +75,8 @@ def _my_binary(ctx):
             outputs = [hashfile],
             inputs = [lout.executable],
             arguments = [
-                lout.executable.short_path,
-                hashfile.short_path,
+                lout.executable.path,
+                hashfile.path,
             ],
             executable = toolbox.hasher,
         )

@@ -13,6 +13,8 @@ bazel build //missing_file:hello_bug
 
 ## Indirect `exec` dependency is missing runfiles
 
+Note: Fixed.
+
 Define a `toolbox` rule that can collect a number of tools and other
 deps that might be needed by a custom binary rule.  The `runfiles`
 directory of an "indirect" tool dependency get lost (or never built).
